@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kristályrácsok típusai</title>
+<style>
+  :root{--bg:#fff8e7;--ink:#2b2d42;--card:#ffffff}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 "Trebuchet MS",system-ui,sans-serif;padding:18px}
+  .wrap{max-width:1000px;margin:auto}
+  h1{text-align:center;font-size:1.7rem;margin:0 0 6px}
+  .intro{text-align:center;margin:0 auto 14px;max-width:760px}
+  .card{background:var(--card);border-radius:20px;padding:14px;box-shadow:0 4px 0 rgba(0,0,0,.1)}
+  .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center;margin-bottom:14px;padding:14px 18px}
+  .controls label{flex:1 1 300px;text-align:center}
+  input[type=range]{width:100%;height:34px;accent-color:#ff7b00}
+  button{font:inherit;font-weight:bold;background:#ff7b00;color:#fff;border:0;border-radius:14px;padding:12px 22px;cursor:pointer;box-shadow:0 4px 0 #b35500}
+  button:active{transform:translateY(3px);box-shadow:0 1px 0 #b35500}
+  button.alt{background:#4a90e2;box-shadow:0 4px 0 #2c5f9e}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+  .card h2{margin:0;text-align:center;font-size:1.35rem}
+  .tag{text-align:center;color:#666;font-size:.92rem;margin-bottom:6px}
+  canvas{width:100%;height:auto;display:block;border-radius:14px;background:#eaf6ff}
+  .say{min-height:5.2em;margin-top:8px;text-align:center;font-size:1.02rem;font-weight:bold}
+  .box{background:#fff3c4;border-radius:20px;padding:14px 18px;margin-bottom:14px}
+  .box ul{margin:6px 0 0;padding-left:0;list-style:none}
+  .box li{margin:6px 0}
+  table{width:100%;border-collapse:collapse;font-size:.95rem}
+  th,td{padding:8px;border-bottom:2px dashed #eee;text-align:center;vertical-align:top}
+  th{font-size:1.05rem}
+  td:first-child{text-align:left;font-weight:bold}
+  .tbl{overflow-x:auto}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Kristályrácsok típusai. Mi történik velük hajlítás hatására?</h1>
+
+  <div class="card controls">
+    <label> Állítsd be a hajlítás erősségét!:<br><input id="slider" type="range" min="0" max="1.5" step="0.005" value="0"></label>
+    <button id="play">Automatikus hajlítás</button>
+    <button id="reset" class="alt">Újrakezdés</button>
+  </div>
+
+  <div class="grid">
+    <div class="card"><h2> Sókristály</h2><div class="tag">apró mágnesek: plusz (+) és mínusz (−)</div>
+      <canvas id="ionic" width="440" height="340"></canvas><div class="say" id="sIonic"></div></div>
+    <div class="card"><h2> Fém</h2><div class="tag">részecskék az úszkáló elektronok tengerében</div>
+      <canvas id="metal" width="440" height="340"></canvas><div class="say" id="sMetal"></div></div>
+    <div class="card"><h2> Gyémánt</h2><div class="tag">atomok, amelyek erős kovalens kötésekkel kapaszkodnak egymásba</div>
+      <canvas id="atomic" width="440" height="340"></canvas><div class="say" id="sAtomic"></div></div>
+    <div class="card"><h2> Jég és jód</h2><div class="tag">egyes molekulákon belül kovalens kötés, köztük másodrendű gyengébb kötések</div>
+      <canvas id="mol" width="440" height="340"></canvas><div class="say" id="sMol"></div></div>
+  </div>
+
+  <div class="box">
+    <b>Miért?</b>
+    <ul>
+      <li> <b>Só:</b> a + és − részecskék: ionos kötés tartja össze őket! Ha elcsúsztatod, <b>azonos jelek kerülnek egymás mellé</b>, és eltaszítják egymást → <b>eltörik</b>.</li>
+      <li> <b>Fém:</b> az elektronok úgy úszkálnak, mint a víz a golyók között. A golyók elcsúsznak, a víz velük megy → <b>meghajlik</b>.</li>
+      <li> <b>Gyémánt:</b> minden atomot <b>nagyon erős kovalens kötések</b> tartanak minden irányból. Szinte lehetetlen megmozdítani, de elég erő mentén eltörnek.</li>
+      <li> <b>Jég és jód:</b> a molekulák belül erősek, de egymást csak <b>gyenge másodrendű kötések</b> fogják. Ezek könnyen elszakadnak → a rétegek <b>elcsúsznak</b>, az anyag <b>puha</b>.</li>
+    </ul>
+  </div>
+
+  <div class="card tbl">
+    <table>
+      <tr><th></th><th> Só</th><th> Fém</th><th> Gyémánt</th><th> Jég, jód</th></tr>
+      <tr><td>Mi tartja össze?</td><td>+ és − „mágnesek”</td><td>elektronok tengere</td><td>nagyon erős kötelek</td><td>gyenge másodrendű kötések a molekulák között</td></tr>
+      <tr><td>Mi történik, ha tolod?</td><td>eltörik </td><td>meghajlik </td><td>eltörik </td><td>elcsúszik, szétmorzsolódik </td></tr>
+      <tr><td>Mennyire kemény?</td><td>kemény</td><td>puhától keményig</td><td>nagyon kemény </td><td>puha</td></tr>
+      <tr><td>Olvadás?</td><td>csak nagyon nagy hőségben</td><td>többnyire nagy hőségben</td><td>extrém nagy hőségben</td><td>már kis melegben (a jég a kezedben is megolvad!)</td></tr>
+    </table>
+  </div>
+</div>
+
+<script>
+(() => {
+  const A = 58, X0 = 62, Y0 = 64, PLANE = Y0 + 1.5*A;
+  const COLS = 5, ROWS = 4, TH_ION = .35, TH_AT = .25, TH_MOL = .12;
+  const slider = document.getElementById('slider');
+  let d = 0, playing = false, dir = 1;
+  const $ = id => document.getElementById(id);
+  const PLAY_TXT = 'Automatikus hajlítás', STOP_TXT = 'Megállítás';
+
+  function setup(id){
+    const c = $(id), r = window.devicePixelRatio || 1, w = c.width, h = c.height;
+    c.width = w*r; c.height = h*r; const ctx = c.getContext('2d'); ctx.scale(r, r); return {ctx, w, h};
+  }
+  const I = setup('ionic'), M = setup('metal'), AC = setup('atomic'), ML = setup('mol');
+  const smooth = v => { v = Math.max(0, Math.min(1, v)); return v*v*(3-2*v); };
+  const lerpC = (c1, c2, t) => `rgb(${c1.map((v, k) => Math.round(v + (c2[k] - v)*t)).join(',')})`;
+
+  // részecske (arc nélkül)
+  function ball(ctx, x, y, r, color, sign){
+    ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fillStyle = color; ctx.fill(); ctx.strokeStyle = 'rgba(0,0,0,.25)'; ctx.lineWidth = 2; ctx.stroke();
+    if (sign){ ctx.fillStyle = '#fff'; ctx.font = 'bold 18px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(sign, x, y - r - 8); }
+  }
+  function push(ctx){ ctx.fillStyle = '#556'; ctx.font = '14px system-ui'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.fillText('hajlítás →', 12, 22); }
+  function bigText(ctx, txt, x, y, col){
+    ctx.save(); ctx.translate(x, y); ctx.rotate(-.08); ctx.fillStyle = col; ctx.font = 'bold 32px "Comic Sans MS",system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(txt, 0, 0); ctx.restore();
+  }
+
+  // ---------- SÓ ----------
+  function drawIonic(t){
+    const {ctx, w, h} = I; ctx.clearRect(0, 0, w, h);
+    const broken = d > TH_ION, gap = broken ? (d - TH_ION)*A*1.4 : 0;
+    const charge = (i, j) => ((i + j) % 2 === 0) ? 1 : -1;
+    const pos = (i, j) => { let x = X0 + i*A, y = Y0 + j*A;
+      if (j < 2){ x += d*A; y -= gap; if (broken && j === 1){ x += Math.sin(t/80 + i*3)*1.6; y += Math.cos(t/90 + i)*1.6; } }
+      return [x, y]; };
+    if (!broken){
+      for (let i = 0; i < COLS; i++){ const [xt, yt] = pos(i, 1);
+        for (let k = 0; k < COLS; k++){ const [xb, yb] = pos(k, 2), dx = xt - xb;
+          if (Math.abs(dx) < A*.5){
+            const same = charge(i, 1) === charge(k, 2), wgt = 1 - Math.abs(dx)/(A*.5);
+            ctx.globalAlpha = Math.min(1, .25 + wgt); ctx.strokeStyle = same ? '#e74c3c' : '#2ecc71'; ctx.lineWidth = 2 + 4*wgt; ctx.beginPath();
+            if (same){ ctx.moveTo(xt, yt); for (let s = 1; s <= 6; s++){ const f = s/6; ctx.lineTo(xt + (xb - xt)*f + (s % 2 ? 6 : -6), yt + (yb - yt)*f); } }
+            else { ctx.moveTo(xt, yt); ctx.lineTo(xb, yb); }
+            ctx.stroke(); ctx.globalAlpha = 1; } } }
+    }
+    for (let j = 0; j < ROWS; j++) for (let i = 0; i < COLS; i++){
+      const plus = charge(i, j) === 1, [x, y] = pos(i, j); ball(ctx, x, y, plus ? 20 : 24, plus ? '#ff6b6b' : '#4a90e2', plus ? '+' : '−'); }
+    if (broken) bigText(ctx, 'törés!', w/2, PLANE - gap/2 + 8, '#e74c3c');
+    push(ctx);
+    $('sIonic').innerHTML = broken ? 'Törés, az azonos jelek eltaszították egymást.'
+      : d > .12 ? 'Jaj! Az azonos jelek egymás mellé kerülnek… a piros cikkcakk taszítást jelent!'
+      : 'A + és − egymás mellett vannak, erős kölcsönhatás van!';
+  }
+
+  // ---------- FÉM ----------
+  const swim = Array.from({length: 50}, () => ({x: X0 - 20 + Math.random()*(COLS*A), y: Y0 - 20 + Math.random()*(ROWS*A - 10), vx: Math.random() - .5, vy: Math.random() - .5}));
+  const shiftAt = y => d*A*smooth((PLANE - y)/A + .5);
+  function drawMetal(){
+    const {ctx, w, h} = M; ctx.clearRect(0, 0, w, h);
+    const xl = X0 - 34, xr = X0 + (COLS - 1)*A + 34, yt = Y0 - 36, yb = Y0 + (ROWS - 1)*A + 36;
+    ctx.fillStyle = 'rgba(0,184,217,.22)'; ctx.beginPath();
+    ctx.moveTo(xl + d*A, yt); ctx.lineTo(xr + d*A, yt); ctx.lineTo(xr + d*A, PLANE - 4); ctx.lineTo(xr, PLANE + 4);
+    ctx.lineTo(xr, yb); ctx.lineTo(xl, yb); ctx.lineTo(xl, PLANE + 4); ctx.lineTo(xl + d*A, PLANE - 4); ctx.closePath(); ctx.fill();
+    for (const e of swim){
+      e.vx += (Math.random() - .5)*.25; e.vy += (Math.random() - .5)*.25;
+      const sp = Math.hypot(e.vx, e.vy); if (sp > 1.4){ e.vx *= 1.4/sp; e.vy *= 1.4/sp; }
+      e.x += e.vx; e.y += e.vy;
+      if (e.x < xl + 8){ e.x = xl + 8; e.vx *= -1; } if (e.x > xr - 8){ e.x = xr - 8; e.vx *= -1; }
+      if (e.y < yt + 8){ e.y = yt + 8; e.vy *= -1; } if (e.y > yb - 8){ e.y = yb - 8; e.vy *= -1; }
+      ctx.beginPath(); ctx.arc(e.x + shiftAt(e.y), e.y, 3.4, 0, 7); ctx.fillStyle = '#00b8d9'; ctx.fill();
+    }
+    for (let j = 0; j < ROWS; j++) for (let i = 0; i < COLS; i++) ball(ctx, X0 + i*A + (j < 2 ? d*A : 0), Y0 + j*A, 21, '#ff6b6b', '+');
+    ctx.strokeStyle = 'rgba(0,0,0,.25)'; ctx.setLineDash([6, 6]); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(10, PLANE); ctx.lineTo(w - 10, PLANE); ctx.stroke(); ctx.setLineDash([]);
+    push(ctx);
+    $('sMetal').innerHTML = d < .05 ? 'A fém részecskéi az úszkáló elektronok tengerében lebegnek.'
+      : d < .9 ? 'A rétegek elcsúsznak, az elektronok együtt úsznak velük. Minden együtt marad!'
+      : 'A fém hajlik, nem törik el!';
+  }
+
+  // ---------- GYÉMÁNT ----------
+  const GRAY = [105, 115, 140], RED = [231, 76, 60];
+  function drawAtomic(t){
+    const {ctx, w, h} = AC; ctx.clearRect(0, 0, w, h);
+    const broken = d > TH_AT, gap = broken ? (d - TH_AT)*A*1.2 : 0, ten = Math.min(1, d/TH_AT);
+    const pos = (i, j) => { let x = X0 + i*A, y = Y0 + j*A;
+      if (j < 2){ x += d*A; y -= gap; }
+      if (broken && (j === 1 || j === 2)){ x += Math.sin(t/70 + i*2 + j); y += Math.cos(t/80 + i); }
+      return [x, y]; };
+    ctx.lineCap = 'round';
+    const rope = (a, b, col, lw) => { ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); };
+    const g = lerpC(GRAY, GRAY, 0);
+    for (let j = 0; j < ROWS; j++) for (let i = 0; i < COLS; i++){
+      const p = pos(i, j);
+      if (i < COLS - 1) rope(p, pos(i + 1, j), g, 7);
+      if (j < ROWS - 1){
+        if (j === 1){ if (!broken) rope(p, pos(i, 2), lerpC(GRAY, RED, ten), 7 - 3*ten); }
+        else rope(p, pos(i, j + 1), g, 7);
+      }
+    }
+    for (let j = 0; j < ROWS; j++) for (let i = 0; i < COLS; i++){ const [x, y] = pos(i, j); ball(ctx, x, y, 20, '#f5a623', ''); }
+    if (broken) bigText(ctx, 'törés!', w/2, PLANE - gap/2 + 8, '#e74c3c');
+    push(ctx); ctx.fillStyle = '#556'; ctx.font = '13px system-ui'; ctx.fillText('━ kovalens kötés', 12, h - 12);
+    $('sAtomic').innerHTML = broken ? 'Törés történik, nem hajlik el'
+      : d > .08 ? 'A kovalens kötéseket nehéz felszakítani!'
+      : 'Minden atom erős kovalens kötéseket alakít ki minden irányba, nagyon erős összetartó erő!!';
+  }
+
+  // ---------- JÉG / JÓD ----------
+  const MS = 110, XM = 70, MC = 3;
+  function drawMol(t){
+    const {ctx, w, h} = ML; ctx.clearRect(0, 0, w, h);
+    const broken = d > TH_MOL, gap = broken ? 6 : 0, ten = Math.min(1, d/TH_MOL);
+    const pos = (i, j) => { let x = XM + i*MS, y = Y0 + j*A;
+      if (j < 2){ x += d*A; y -= gap; if (broken){ x += Math.sin(t/160 + i + j)*2; y += Math.cos(t/190 + i*2 + j)*1.3; } }
+      return [x, y]; };
+    ctx.lineCap = 'round'; ctx.setLineDash([3, 5]);
+    for (let j = 0; j < ROWS; j++) for (let i = 0; i < MC; i++){
+      const p = pos(i, j);
+      if (i < MC - 1){ const q = pos(i + 1, j); ctx.strokeStyle = 'rgba(100,110,130,.5)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(p[0] + 30, p[1]); ctx.lineTo(q[0] - 30, q[1]); ctx.stroke(); }
+      if (j < ROWS - 1){
+        if (j === 1){ if (!broken){ const q = pos(i, 2); ctx.strokeStyle = lerpC([100, 110, 130], [255, 140, 40], ten); ctx.lineWidth = 2 + ten; ctx.beginPath(); ctx.moveTo(p[0], p[1] + 14); ctx.lineTo(q[0], q[1] - 14); ctx.stroke(); } }
+        else { const q = pos(i, j + 1); ctx.strokeStyle = 'rgba(100,110,130,.5)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(p[0], p[1] + 14); ctx.lineTo(q[0], q[1] - 14); ctx.stroke(); }
+      }
+    }
+    ctx.setLineDash([]);
+    for (let j = 0; j < ROWS; j++) for (let i = 0; i < MC; i++){
+      const [x, y] = pos(i, j);
+      ctx.strokeStyle = '#69738c'; ctx.lineWidth = 8; ctx.beginPath(); ctx.moveTo(x - 16, y); ctx.lineTo(x + 16, y); ctx.stroke();
+      for (const s of [-1, 1]) ball(ctx, x + 16*s, y, 14, '#7bd88f', '');
+    }
+    if (broken){ ctx.fillStyle = '#e8743b'; ctx.font = 'bold 16px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillText('törés!', w/2, PLANE - 10); }
+    push(ctx); ctx.fillStyle = '#556'; ctx.font = '13px system-ui'; ctx.textAlign = 'left'; ctx.fillText('━ kovalens kötés   ┄ másodrendű kötés', 12, h - 12);
+    $('sMol').innerHTML = broken ? 'A másodrendű kötések felszakadnak, a kovalens kötések nem! Ezért puhák ezek az anyagok!'
+      : d > .03 ? 'A másodrendű kötések hamar meggyengülnek.'
+      : 'A molekulákat belül kovalens kötés tartja össze, de egymáshoz csak másodrendű kötések tartják.';
+  }
+
+  // ---------- Vezérlők ----------
+  const btn = $('play');
+  slider.addEventListener('input', () => { d = parseFloat(slider.value); playing = false; btn.textContent = PLAY_TXT; });
+  btn.addEventListener('click', () => { playing = !playing; btn.textContent = playing ? STOP_TXT : PLAY_TXT; });
+  $('reset').addEventListener('click', () => { d = 0; slider.value = 0; playing = false; dir = 1; btn.textContent = PLAY_TXT; });
+
+  function frame(t){
+    if (playing){ d += dir*.004; if (d >= 1.5){ d = 1.5; dir = -1; } if (d <= 0){ d = 0; dir = 1; } slider.value = d; }
+    drawIonic(t); drawMetal(); drawAtomic(t); drawMol(t);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
